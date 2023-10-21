@@ -2,15 +2,18 @@ package com.example.analyticsdashboard.entity;
 
 import java.time.LocalDateTime;
 
-import org.springframework.data.annotation.Id;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document(collection ="callRecords")
 public class CallRecord {
 	
-	@Id
-	private String id;
+	@MongoId(value=FieldType.OBJECT_ID)
+	@Field("id")
+	private ObjectId id;
 	
 	private LocalDateTime callStartTime;
     private LocalDateTime callEndTime;
@@ -30,13 +33,15 @@ public class CallRecord {
         this.callDuration = (int) java.time.Duration.between(callStartTime, callEndTime).getSeconds();
     }
     
-    public String getId() {
+    public void setId(String id) {
+		this.id = new ObjectId(id);
+	}
+
+	public ObjectId getId() {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 
 	public LocalDateTime getCallStartTime() {
 		return callStartTime;

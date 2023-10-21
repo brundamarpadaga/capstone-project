@@ -3,16 +3,18 @@ package com.example.analyticsdashboard.entity;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.data.annotation.Id;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document(collection = "plans")
 public class Plan {
 	
-	@Id
+	@MongoId(value=FieldType.OBJECT_ID)
 	@Field("planId")
-	String planId;
+	ObjectId planId;
 
 	String planName;
 	String planType;
@@ -69,11 +71,11 @@ public class Plan {
 	public void setLocationBasedPricing(Map<String, Integer> locationBasedPricing) {
 		this.locationBasedPricing = locationBasedPricing;
 	}
-	public String getPlanId() {
+	public ObjectId getPlanId() {
 		return planId;
 	}
 	public void setPlanId(String planId) {
-		this.planId = planId;
+		this.planId = new ObjectId(planId);
 	}
 	public String getPlanName() {
 		return planName;
