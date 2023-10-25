@@ -19,6 +19,7 @@ public class CallRecord {
     private LocalDateTime callEndTime;
     private int callDuration; 
     private String phoneNumber; 
+    private boolean callActive;
     
 	@Field("subscriberID")
     private String subscriberID;
@@ -28,9 +29,23 @@ public class CallRecord {
         this.callStartTime = callStartTime;
         this.callEndTime = callEndTime;
         this.phoneNumber = phoneNumber;
+        
+    }
+    
+    
+    public boolean isCallActive() {
+		return callActive;
+	}
 
-        // Calculate the call duration in seconds
-        this.callDuration = (int) java.time.Duration.between(callStartTime, callEndTime).getSeconds();
+
+	public void setCallActive(boolean callActive) {
+		this.callActive = callActive;
+	}
+
+
+	public int calculateCallDuration() {
+    	return callDuration = (int) java.time.Duration.between(callStartTime, callEndTime).getSeconds();
+    	
     }
     
     public void setId(String id) {

@@ -18,10 +18,6 @@ public class PlanService {
 	private PlanRepository planRepository;
 	
 	public String addPlan(Plan plan) {
-//		Plan newPlan = new Plan();
-//		newPlan.setCallsUnlimited(plan.isCallsUnlimited());
-//		newPlan.setDataPerDay(plan.getDataPerDay());
-//		newPlan.setDataPerPack(plan);
 		planRepository.save(plan);
 		return "Plan added successfully";
 	}
@@ -87,8 +83,6 @@ public class PlanService {
         planDTO.setDataUnit(plan.getDataUnit());
         planDTO.setLocationBasedPricing(plan.getLocationBasedPricing());
         return planDTO;
-    }
-	
-	
+    }	
 
 }

@@ -22,12 +22,11 @@ public class Plan {
 	int totalSMS;           
 	boolean callsUnlimited;//pre
 	int talkTime;
-	int dataPerDay;
-	int dataPerPack;
+	float dataPerDay;
+	float dataPerPack;
 	String dataUnit;
 	
 	private Map<String, Integer> locationBasedPricing = new HashMap<>();
-	
 	
 	public String getPlanType() {
 		return planType;
@@ -47,16 +46,16 @@ public class Plan {
 	public void setTalkTime(int talkTime) {
 		this.talkTime = talkTime;
 	}
-	public int getDataPerDay() {
+	public float getDataPerDay() {
 		return dataPerDay;
 	}
-	public void setDataPerDay(int dataPerDay) {
+	public void setDataPerDay(float dataPerDay) {
 		this.dataPerDay = dataPerDay;
 	}
-	public int getDataPerPack() {
+	public float getDataPerPack() {
 		return dataPerPack;
 	}
-	public void setDataPerPack(int dataPerPack) {
+	public void setDataPerPack(float dataPerPack) {
 		this.dataPerPack = dataPerPack;
 	}
 	public String getDataUnit() {

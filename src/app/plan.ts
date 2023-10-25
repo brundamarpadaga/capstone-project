@@ -1,5 +1,5 @@
 export interface Plan {
-    planId: number;
+    planId: string;
     planName: string;
     planType: string;
     validity: number;

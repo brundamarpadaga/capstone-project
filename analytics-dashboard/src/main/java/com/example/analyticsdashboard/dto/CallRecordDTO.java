@@ -6,7 +6,15 @@ public class CallRecordDTO {
     private String callEndTime;
     private int callDuration;
     private String phoneNumber;
+    public boolean callActive;
     private String subscriberID;
+    
+	public boolean isCallActive() {
+		return callActive;
+	}
+	public void setCallActive(boolean callActive) {
+		this.callActive = callActive;
+	}
 	public String getId() {
 		return id;
 	}

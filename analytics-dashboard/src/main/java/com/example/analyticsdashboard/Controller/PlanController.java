@@ -1,7 +1,6 @@
 package com.example.analyticsdashboard.Controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.analyticsdashboard.dto.MessageDTO;
 import com.example.analyticsdashboard.dto.PlanDTO;
 import com.example.analyticsdashboard.entity.Plan;
 import com.example.analyticsdashboard.service.PlanService;
@@ -34,19 +34,26 @@ public class PlanController {
 	
 	
 	@PostMapping("/plan/add")
-	public ResponseEntity<String> addPlan(@RequestBody Plan plan) {
-		return ResponseEntity.ok(planService.addPlan(plan));
+	public ResponseEntity<MessageDTO> addPlan(@RequestBody Plan plan) {
+		MessageDTO msg = new MessageDTO();
+    	msg.setStatusReport(planService.addPlan(plan));
+		return ResponseEntity.ok(msg);
 	}
 	
 	 @PutMapping("/plan/edit/{id}")
-	 public String editPlan(@PathVariable String id, @RequestBody Plan plan) {
-		 return planService.editPlan(id, plan);
+	 public ResponseEntity<MessageDTO> editPlan(@PathVariable String id, @RequestBody Plan plan) {
+		 MessageDTO msg = new MessageDTO();
+	     msg.setStatusReport(planService.editPlan(id, plan));
+		 return ResponseEntity.ok(msg);
+		 
 	        
 	 }
 
 	    @DeleteMapping("/plan/delete/{id}")
-	    public String deletePlan(@PathVariable String id) {
-	        return planService.deletePlan(id);
+	    public ResponseEntity<MessageDTO> deletePlan(@PathVariable String id) {
+	    	MessageDTO msg = new MessageDTO();
+	    	msg.setStatusReport(planService.deletePlan(id));
+	        return ResponseEntity.ok(msg);
 	    }
 	    
 	    @GetMapping("/plan/{id}")

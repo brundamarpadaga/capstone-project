@@ -16,4 +16,7 @@ export class DashboardComponent {
   goToPlansPage() {
     this.router.navigate(['/plans']);
   }
+  goToCallRecordsPage() {
+    this.router.navigate(['/call-records']);
+  }
 }

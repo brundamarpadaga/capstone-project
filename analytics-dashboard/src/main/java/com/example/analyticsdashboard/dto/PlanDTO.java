@@ -11,8 +11,8 @@ public class PlanDTO {
     private int totalSMS;
     private boolean callsUnlimited;
     private int talkTime;
-    private int dataPerDay;
-    private int dataPerPack;
+    private float dataPerDay;
+    private float dataPerPack;
     private String dataUnit;
     private Map<String, Integer> locationBasedPricing;
 
@@ -78,8 +78,21 @@ public class PlanDTO {
 	public void setCallsUnlimited(boolean callsUnlimited) {
 		this.callsUnlimited = callsUnlimited;
 	}
+	public float getDataPerDay() {
+		return dataPerDay;
+	}
 
+	public void setDataPerDay(float dataPerDay) {
+		this.dataPerDay = dataPerDay;
+	}
 
+	public float getDataPerPack() {
+		return dataPerPack;
+	}
+
+	public void setDataPerPack(float dataPerPack) {
+		this.dataPerPack = dataPerPack;
+	}
 
 	public int getTalkTime() {
 		return talkTime;
@@ -93,27 +106,10 @@ public class PlanDTO {
 
 
 
-	public int getDataPerDay() {
-		return dataPerDay;
-	}
+	
 
 
 
-	public void setDataPerDay(int dataPerDay) {
-		this.dataPerDay = dataPerDay;
-	}
-
-
-
-	public int getDataPerPack() {
-		return dataPerPack;
-	}
-
-
-
-	public void setDataPerPack(int dataPerPack) {
-		this.dataPerPack = dataPerPack;
-	}
 
 
 
