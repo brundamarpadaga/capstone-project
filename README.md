@@ -4,8 +4,8 @@
 
 - [ ] Requirement Specification
 - [ ] Backend code with documentation
-- [x] Frontend code with documentation
-- [x] Test Coverage Reports
+- [ ] Frontend code with documentation
+- [ ] Test Coverage Reports
 
 
 
