@@ -1,5 +1,13 @@
 # Real-time Usage Analytics Dashboard
 
+### Checklist
+
+- [ ] Requirement Specification
+- [ ] Backend code with documentation
+- [x] Frontend code with documentation
+- [x] Test Coverage Reports
+
+
 
 
 
