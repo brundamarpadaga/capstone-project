@@ -13,6 +13,7 @@ export class AddCallRecordComponent {
   selectedSubscriberId!: string;
   phoneNumber: string = '';
   activeCalls: CallRecord[] = [];
+  successMessage: string | null = null;
 
 
   constructor(private callRecordService: CallRecordsService, private subscriberService: SubscribersService) { }
@@ -41,21 +42,21 @@ export class AddCallRecordComponent {
   startCall() {
     if (this.selectedSubscriberId && this.phoneNumber) {
       this.callRecordService.createCallRecord(this.selectedSubscriberId, this.phoneNumber).subscribe((res) => {
-        console.log(res['statusReport']);
-        window.location.reload();
+        console.log(res);
+        setTimeout(() => {
+          this.successMessage = null;
+        }, 5000); 
+        this.successMessage = 'Call started ' ;
+        this.ngOnInit();
       });
     }
   }
 
   endCall(callRecordId: string) {
     this.callRecordService.endCall(callRecordId).subscribe((res) => {
-      console.log(res['statusReport']);
-      window.location.reload();
+      console.log(res);
+      this.ngOnInit();
       
     });
   }
-
- 
-  
-
 }

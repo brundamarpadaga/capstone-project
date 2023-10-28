@@ -17,7 +17,7 @@ export class PlansService {
     return this.http.get<Plan[]>(`${this.baseUrl}/plans`);
   }
 
-  addPlan(plan: PlanDTO): Observable<any> {
+  addPlan(plan: PlanDTO): Observable<Status> {
     return this.http.post<Status>(`${this.baseUrl}/plan/add`, plan,{headers :new HttpHeaders({"Content-Type":"application/json"})});
   }
   editPlan(id: string, plan: Plan): Observable<string> {

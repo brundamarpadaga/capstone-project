@@ -3,6 +3,7 @@ package com.example.analyticsdashboard.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.analyticsdashboard.dto.DataLeftDTO;
+import com.example.analyticsdashboard.dto.MessageDTO;
 import com.example.analyticsdashboard.entity.SubscriberUsage;
 import com.example.analyticsdashboard.service.UsageService;
 
@@ -37,5 +40,23 @@ public class UsageController {
 	public SubscriberUsage getSubscriberUsage(@PathVariable String subscriberId) {	
 		return usageService.getSubscriberUsage(subscriberId);	
 	}
+	
+	@PostMapping("/dataUsed")
+	public ResponseEntity<MessageDTO> dataUsed(@RequestParam float dataUsed , @RequestParam String subscriberId) {
+		MessageDTO msg = new MessageDTO();
+	    msg.setStatusReport(usageService.dataUsed(dataUsed ,subscriberId));
+		return ResponseEntity.ok(msg);
+		
+	}
+	
+	@GetMapping("/data-left-piechart")
+	 public DataLeftDTO dataLeftPieChart(@RequestParam String usageId) {
+		 
+		 return usageService.dataLeftChart(usageId);
+	 }
+	 
+	
+	
+	
 
 }

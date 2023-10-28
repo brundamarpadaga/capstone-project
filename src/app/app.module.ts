@@ -11,14 +11,15 @@ import { FormsModule } from '@angular/forms';
 import { AddPlanComponent } from './add-plan/add-plan.component';
 import { CallRecordsComponent } from './call-records/call-records.component';
 import { EditPlanComponent } from './edit-plan/edit-plan.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AddCallRecordComponent } from './add-call-record/add-call-record.component';
 import { SmsRecordsComponent } from './sms-records/sms-records.component';
 import { AddSmsRecordComponent } from './add-sms-record/add-sms-record.component';
 import { SubscriberUsageDetailsComponent } from './subscriber-usage-details/subscriber-usage-details.component';
 import { CallRecordsChartComponent } from './call-records-chart/call-records-chart.component';
-import { ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
 import { NgChartsModule } from 'ng2-charts';
+import { DataUsageComponent } from './data-usage/data-usage.component';
+import { SmsRecordsChartComponent } from './sms-records-chart/sms-records-chart.component';
+
 
 
 @NgModule({
@@ -30,12 +31,13 @@ import { NgChartsModule } from 'ng2-charts';
     AddPlanComponent,
     CallRecordsComponent,
     EditPlanComponent,
-    NavBarComponent,
     AddCallRecordComponent,
     SmsRecordsComponent,
     AddSmsRecordComponent,
     SubscriberUsageDetailsComponent,
-    CallRecordsChartComponent
+    CallRecordsChartComponent,
+    DataUsageComponent,
+    SmsRecordsChartComponent
   ],
   imports: [
     BrowserModule,

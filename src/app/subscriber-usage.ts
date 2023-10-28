@@ -1,4 +1,5 @@
 export interface SubscriberUsage {
+	id: string;
     dataLeft : number;
 	smsLeft : number;
 	talkTimeLeft : number;

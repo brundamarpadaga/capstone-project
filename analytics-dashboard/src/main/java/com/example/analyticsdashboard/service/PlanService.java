@@ -52,7 +52,7 @@ public class PlanService {
 
             // Save the updated plan
             planRepository.save(existingPlan);
-            return "Plan added succesfully";
+            return "Plan added successfully";
         }
         return "Plan does not exist";
 	}
@@ -70,19 +70,22 @@ public class PlanService {
 	
 	public PlanDTO convertToPlanDTO(Plan plan) {
         PlanDTO planDTO = new PlanDTO();
-        planDTO.setPlanId(plan.getPlanId().toHexString());
-        System.out.println(planDTO.getPlanId());
-        planDTO.setPlanName(plan.getPlanName());
-        planDTO.setPlanType(plan.getPlanType());
-        planDTO.setValidity(plan.getValidity());
-        planDTO.setTotalSMS(plan.getTotalSMS());
-        planDTO.setCallsUnlimited(plan.isCallsUnlimited());
-        planDTO.setTalkTime(plan.getTalkTime());
-        planDTO.setDataPerDay(plan.getDataPerDay());
-        planDTO.setDataPerPack(plan.getDataPerPack());
-        planDTO.setDataUnit(plan.getDataUnit());
-        planDTO.setLocationBasedPricing(plan.getLocationBasedPricing());
-        return planDTO;
+        if(plan != null) {
+        	planDTO.setPlanId(plan.getPlanId().toHexString());
+            planDTO.setPlanName(plan.getPlanName());
+            planDTO.setPlanType(plan.getPlanType());
+            planDTO.setValidity(plan.getValidity());
+            planDTO.setTotalSMS(plan.getTotalSMS());
+            planDTO.setCallsUnlimited(plan.isCallsUnlimited());
+            planDTO.setTalkTime(plan.getTalkTime());
+            planDTO.setDataPerDay(plan.getDataPerDay());
+            planDTO.setDataPerPack(plan.getDataPerPack());
+            planDTO.setDataUnit(plan.getDataUnit());
+            planDTO.setLocationBasedPricing(plan.getLocationBasedPricing());
+            return planDTO;
+        }
+        return null;
+        
     }	
 
 }

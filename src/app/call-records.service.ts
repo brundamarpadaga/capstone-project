@@ -23,14 +23,14 @@ export class CallRecordsService {
     return this.http.get<CallRecord[]>(url);
   }
 
-  createCallRecord(subscriberId: string, phoneNumber: string): Observable<any> {
+  createCallRecord(subscriberId: string, phoneNumber: string): Observable<Status> {
     const url = `${this.baseUrl}/api/start-call?subscriberId=${subscriberId}&phone=${phoneNumber}`;
     const body = { subscriberId, phone: phoneNumber };
     return this.http.post<Status>(url, "");
   }
 
 
-  endCall(callRecordId: string): Observable<any> {
+  endCall(callRecordId: string): Observable<Status> {
     const url = `${this.baseUrl}/api/end-call?callRecordId=${callRecordId}`;
     return this.http.post<Status>(url, null);
   }
@@ -38,6 +38,10 @@ export class CallRecordsService {
   getCallRecordsBySubscriberId(subscriberId: string): Observable<CallRecord[]> {
     const url = `${this.baseUrl}/api/call-records-DTOs/${subscriberId}`;
     return this.http.get<CallRecord[]>(url);
+  }
+
+  getAverageCallDuration(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/api/analytics/average-call-duration`);
   }
 
 }

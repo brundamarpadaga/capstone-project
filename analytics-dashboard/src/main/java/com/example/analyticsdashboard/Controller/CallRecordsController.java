@@ -26,6 +26,7 @@ public class CallRecordsController {
     @Autowired
     private CallRecordService callRecordService;
     
+    
     @GetMapping("/call-record/{callRecordId}")
     public CallRecordDTO getCallRecord(@PathVariable String callRecordId) {
     	return callRecordService.getCallRecord(callRecordId);
@@ -72,11 +73,5 @@ public class CallRecordsController {
     	return callRecordService.getActiveCalls();
     }
     
-    @GetMapping("/call-records-hourly-count")
-    public ResponseEntity<List<Integer>> getCallRecordsHourlyCount() {
-        List<CallRecord> callRecords = callRecordService.getAllCallrecords();
-        List<Integer> hourlyCounts = callRecordService.calculateHourlyCounts(callRecords);
-        return ResponseEntity.ok(hourlyCounts);
-    }
 
 }

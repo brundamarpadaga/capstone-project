@@ -31,21 +31,15 @@ public class CallRecord {
         this.phoneNumber = phoneNumber;
         
     }
-    
-    
-    public boolean isCallActive() {
+	public boolean isCallActive() {
 		return callActive;
 	}
-
-
 	public void setCallActive(boolean callActive) {
 		this.callActive = callActive;
 	}
-
-
+	
 	public int calculateCallDuration() {
-    	return callDuration = (int) java.time.Duration.between(callStartTime, callEndTime).getSeconds();
-    	
+    	return callDuration = (int) java.time.Duration.between(callStartTime, callEndTime).getSeconds();	
     }
     
     public void setId(String id) {

@@ -9,9 +9,7 @@ import com.example.analyticsdashboard.repository.CallRecordRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class CallRecordService {
@@ -32,8 +30,11 @@ public class CallRecordService {
     }
     
     public CallRecordDTO getCallRecord(String callRecordId) {
-    	System.out.println(callRecordId);
-    	return convertToDTO( callRecordRepository.findById(callRecordId).get());
+    	CallRecord callRecord = callRecordRepository.findById(callRecordId).get();
+    	if( callRecord != null) {
+    		return convertToDTO( callRecord);
+    	}
+    	return null;
     }
 
     public List<CallRecord> getAllCallRecordsBySubscriberId(String subscriberId) {
@@ -57,34 +58,44 @@ public class CallRecordService {
 
     public String endCall(String callRecordId) {
         CallRecord callRecord = callRecordRepository.findById(callRecordId).orElse(null);
-        String subscriberId = callRecord.getSubscriberID();
-        if (callRecord.getCallEndTime() == null && callRecord.isCallActive()) {
-			LocalDateTime callEndTime = LocalDateTime.now();
-			callRecord.setCallEndTime(callEndTime);
-			callRecord.setCallActive(false);
-			int durationInSeconds = callRecord.calculateCallDuration();
-			callRecordRepository.save(callRecord);
-			System.out.println(durationInSeconds);
-			usageService.callMade(subscriberId, durationInSeconds);
-			return "Call Ended";
-		} else {
-			return "Call not found or already ended";
-		}
+        if(callRecord != null) {
+        	String subscriberId = callRecord.getSubscriberID();
+            if (callRecord.getCallEndTime() == null && callRecord.isCallActive()) {
+    			LocalDateTime callEndTime = LocalDateTime.now();
+    			callRecord.setCallEndTime(callEndTime);
+    			callRecord.setCallActive(false);
+    			int durationInSeconds = callRecord.calculateCallDuration();
+    			callRecordRepository.save(callRecord);
+    			usageService.callMade(subscriberId, durationInSeconds);
+    			return "Call Ended";
+    		} else {
+    			return "Call not found or already ended";
+    		}
+            
+        }
+        return "Call not found or already ended";
+        
         
     }
     
     public CallRecordDTO convertToDTO(CallRecord callRecord) {
     	CallRecordDTO dto = new CallRecordDTO();
-    	dto.setSubscriberID(callRecord.getSubscriberID());
-    	dto.setCallStartTime(callRecord.getCallStartTime().toString());
-    	dto.setId(callRecord.getId().toHexString());
-    	dto.setCallActive(callRecord.isCallActive());
-    	if(callRecord.getCallEndTime() != null) {
-    		dto.setCallEndTime(callRecord.getCallEndTime().toString());
-        	dto.setCallDuration(callRecord.getCallDuration());
+    	
+    	if(callRecord != null ) {
+    		dto.setSubscriberID(callRecord.getSubscriberID());
+        	dto.setCallStartTime(callRecord.getCallStartTime().toString());
+        	dto.setId(callRecord.getId().toHexString());
+        	dto.setCallActive(callRecord.isCallActive());
+        	if(callRecord.getCallEndTime() != null) {
+        		dto.setCallEndTime(callRecord.getCallEndTime().toString());
+            	dto.setCallDuration(callRecord.getCallDuration());
+        	}
+        	dto.setPhoneNumber(callRecord.getPhoneNumber());
+        	return dto;
+    		
     	}
-    	dto.setPhoneNumber(callRecord.getPhoneNumber());
-    	return dto;
+    	return null;
+    	
     }
 
 	public List<CallRecordDTO> getAllCallrecordsDTO() {
@@ -105,28 +116,5 @@ public class CallRecordService {
 		return callRecordDTOs;
 	}
 	
-	public List<Integer> calculateHourlyCounts(List<CallRecord> callRecords) {
-	   
-	    Map<Integer, Integer> hourlyCounts = new HashMap<>();
-
-	    for (CallRecord callRecord : callRecords) {
-	        LocalDateTime startDateTime = callRecord.getCallStartTime();
-	        LocalDateTime endDateTime = callRecord.getCallEndTime();
-
-	     
-	        while (startDateTime.isBefore(endDateTime)) {
-	            int hour = startDateTime.getHour();
-	            hourlyCounts.put(hour, hourlyCounts.getOrDefault(hour, 0) + 1);
-	            startDateTime = startDateTime.plusHours(1);
-	        }
-	    }
-
-	    // Convert the map to a list
-	    List<Integer> hourlyCountList = new ArrayList<>();
-	    for (int hour = 0; hour < 24; hour++) {
-	        hourlyCountList.add(hourlyCounts.getOrDefault(hour, 0));
-	    }
-
-	    return hourlyCountList;
-	}
+	
 }

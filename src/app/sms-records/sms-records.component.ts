@@ -10,22 +10,33 @@ import { SmsRecord } from '../sms-record';
 export class SmsRecordsComponent {
   smsRecords: SmsRecord[] = [];
   filteredSmsRecords: SmsRecord[] = [];
-  subscriberFilter: string = '';
+  searchSubscriberId: string = '';
 
   constructor(private smsRecordService: SmsRecordsService) { }
 
   ngOnInit(): void {
-    this.smsRecordService.getAllSmsRecordsDTO().subscribe((data) => {
-      this.smsRecords = data;
-      this.applyFilter();
-    });
+    this.getSmsRecords();
   }
 
-  applyFilter() {
-    this.filteredSmsRecords = this.smsRecords.filter(
-      (record) =>
-        record.subscriberID.toLowerCase().includes(this.subscriberFilter.toLowerCase())
-    );
+
+  getSmsRecords(){
+    this.smsRecordService.getAllSmsRecordsDTO().subscribe((data) => {
+      this.smsRecords = data;
+    });
+
+  }
+
+  searchSmsRecords() {
+    if (this.searchSubscriberId) {
+      this.smsRecordService.getAllSmsRecordsBySubscriber(this.searchSubscriberId)
+        .subscribe(data => {
+          this.smsRecords = data;
+        });
+    } else {
+      this.smsRecordService.getAllSmsRecords().subscribe(records => {
+        this.smsRecords = records;
+      });
+    }
   }
 
 }

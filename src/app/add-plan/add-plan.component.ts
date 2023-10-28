@@ -52,7 +52,7 @@ export class AddPlanComponent {
     this.newPlan.planType = this.selectedPlanType;
     
     this.plansService.addPlan(this.newPlan).subscribe((res) =>{
-      console.log(res['statusReport']);
+      console.log(res);
       
     });
     

@@ -21,8 +21,17 @@ public class SubscriberUsage {
 	
 	@Field("subscriberID")
 	private String subscriberID;
+	
 
 	
+	public String getId() {
+		return id.toHexString();
+	}
+
+	public void setId(String id) {
+		this.id = new ObjectId(id);
+	}
+
 	public boolean isUnlimitedCalls() {
 		return unlimitedCalls;
 	}

@@ -1,22 +1,22 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component,OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Chart } from 'chart.js/auto';
 import { AnalyticsService } from '../analytics.service';
-import { AbsoluteSourceSpan } from '@angular/compiler';
+import { Chart } from 'chart.js/auto';
 
 @Component({
-  selector: 'app-call-records-chart',
-  templateUrl: './call-records-chart.component.html',
-  styleUrls: ['./call-records-chart.component.css']
+  selector: 'app-sms-records-chart',
+  templateUrl: './sms-records-chart.component.html',
+  styleUrls: ['./sms-records-chart.component.css']
 })
-export class CallRecordsChartComponent implements AfterViewInit {
+export class SmsRecordsChartComponent implements AfterViewInit {
 
   chart!: Chart;
 
-  barChartLabels = Array.from({ length: 24 }, (_, i) => i.toString());
-  barChartType = 'bar';
-  barChartData: { head: string, data: number[], label: string }[] = [
-    { head: '', data: [], label: 'Call Records Count' }
+  public barChartLabels = Array.from({ length: 24 }, (_, i) => i.toString());
+  public barChartType = 'bar';
+  public barChartLegend = true;
+  public barChartData: { head: string, data: number[], label: string }[] = [
+    { head: '', data: [], label: 'SMS Records Count' }
   ];
 
   constructor(private http: HttpClient, private analyticsService: AnalyticsService) {}
@@ -26,7 +26,7 @@ export class CallRecordsChartComponent implements AfterViewInit {
   }
 
   createChart() {
-    const canvas = document.getElementById('callRecordsChart') as HTMLCanvasElement;
+    const canvas = document.getElementById('smsRecordsChart') as HTMLCanvasElement;
     this.chart = new Chart(canvas, {
       type: 'bar',
       data: {
@@ -46,11 +46,11 @@ export class CallRecordsChartComponent implements AfterViewInit {
   }
 
   getData() {
-    this.analyticsService.getCallRecordsHourlyCount().subscribe(hourlyCounts => {
+    this.analyticsService.getSmsRecordsHourlyCount().subscribe(hourlyCounts => {
       this.barChartData[0].head = 'at Time';
       this.barChartData[0].data = hourlyCounts;
 
-      // Update the chart data
+      // Update the chart data and refresh the chart
       this.chart.data.labels = this.barChartLabels;
       this.chart.data.datasets[0].data = this.barChartData[0].data;
       this.chart.update();
@@ -59,8 +59,8 @@ export class CallRecordsChartComponent implements AfterViewInit {
 
  
 
-  barChartOptions = {
-    scaleShowVerticalLines: true,
+  public barChartOptions = {
+    scaleShowVerticalLines: false,
     maintainAspectRatio: true,
     responsive: true,
     scales: {
@@ -75,11 +75,10 @@ export class CallRecordsChartComponent implements AfterViewInit {
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Number of Calls',
+          text: 'Number of SMS',
         },
       },
     },
   };
-  
 
 }

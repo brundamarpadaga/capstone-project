@@ -43,14 +43,14 @@ public class SmsService {
 		return smsDtos;
 	}
 
-	public SmsRecord addSmsRecord(String subscriberId, String phoneNumber) {
+	public String addSmsRecord(String subscriberId, String phoneNumber) {
 		SmsRecord smsRecord = new SmsRecord();
 		smsRecord.setSubscriberID(subscriberId);
 		smsRecord.setPhoneNumber(phoneNumber);
 		smsRecord.setSentTime(LocalDateTime.now());
 		smsRecordRepository.save(smsRecord);
 		usageService.smsSent(subscriberId);
-		return smsRecord;
+		return "SMS record added";
 	}
 	
 	public SmsRecordDTO convertToDTO(SmsRecord smsRecord) {

@@ -42,9 +42,8 @@ public class SmsController {
     
     @PostMapping("/add-sms")
     public ResponseEntity<MessageDTO> addSmsRecord(@RequestParam String subscriberId, @RequestParam String phoneNumber) {
-        smsService.addSmsRecord(subscriberId, phoneNumber);
         MessageDTO msg = new MessageDTO();
-    	msg.setStatusReport("SMS record added");
+    	msg.setStatusReport(smsService.addSmsRecord(subscriberId, phoneNumber));
     	return ResponseEntity.ok(msg);
     }
 }

@@ -3,7 +3,6 @@ package com.example.analyticsdashboard.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import com.example.analyticsdashboard.Controller.UsageController;
 
 public class ScheduledTaskService {
 	
@@ -14,6 +13,7 @@ public class ScheduledTaskService {
 	    @Scheduled(cron = "0 1 0 * * ?")
 	    public void reduceValidityDaily() {
 	        usageService.reduceValidityForAllSubscribers();
+	        usageService.renewData();
 	    }
 
 }
