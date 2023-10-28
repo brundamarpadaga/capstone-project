@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnalyticsService } from '../analytics.service';
 import { HttpClient } from '@angular/common/http';
+import { SubscriberAnalyticsDto } from '../subscriber-analytics-dto';
 
 
 @Component({
@@ -17,6 +18,9 @@ export class DashboardComponent implements OnInit {
   ];
 
   averageDuration!: number;
+  subscriberData !: SubscriberAnalyticsDto; 
+  activeCallCount !: number;
+  inactiveSubscriberUsageCount !: number;
   
   
  
@@ -27,10 +31,18 @@ export class DashboardComponent implements OnInit {
     this.analyticsService.getAverageCallDuration().subscribe((duration) => {
       this.averageDuration = duration;
     });
-    
-    
 
-    
+    this.analyticsService.getSubscriberAnalytics().subscribe((subscriberData) => {
+      this.subscriberData = subscriberData;
+    });
+
+    this.analyticsService.getActiveCallCount().subscribe((count) => {
+      this.activeCallCount = count;
+    });
+
+    this.analyticsService.getInactiveSubscriberUsageCount().subscribe((count) => {
+      this.inactiveSubscriberUsageCount = count;
+    });
   }
 
   goToSubscribersPage() {

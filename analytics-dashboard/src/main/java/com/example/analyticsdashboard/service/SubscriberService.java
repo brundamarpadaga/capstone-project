@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.analyticsdashboard.dto.SubscriberAnalyticsDTO;
 import com.example.analyticsdashboard.dto.SubscriberDTO;
 import com.example.analyticsdashboard.entity.Plan;
 import com.example.analyticsdashboard.entity.Subscriber;
@@ -25,7 +26,7 @@ public class SubscriberService {
     }
 	
 
-	public List<SubscriberDTO> getSubscriberDetails() {
+	public List<SubscriberDTO> getAllSubscriberDetails() {
 		List<Subscriber> subscribers = subscriberRepository.findAll();
         List<SubscriberDTO> subscribersWithPricing = new ArrayList<>();
 
@@ -53,6 +54,32 @@ public class SubscriberService {
 		subscriberRepository.save(sub);
 		return "Subscriber added successfully";
 		
+	}
+	
+	public SubscriberAnalyticsDTO getSubscriberAnalytics() {
+        List<Subscriber> subscribers = getAllSubs();
+        int totalSubscribers = subscribers.size();
+        int prepaidSubscribers = 0;
+        int postpaidSubscribers = 0;
+
+        for (Subscriber subscriber : subscribers) {
+            if ("Prepaid".equalsIgnoreCase(planRepository.findByPlanName(subscriber.getPlanName()).get().getPlanType())) {
+                prepaidSubscribers++;
+            } else if ("Postpaid".equalsIgnoreCase(planRepository.findByPlanName(subscriber.getPlanName()).get().getPlanType())) {
+                postpaidSubscribers++;
+            }
+        }
+        SubscriberAnalyticsDTO analyticsDTO = new SubscriberAnalyticsDTO();
+        analyticsDTO.setTotalSubscribers(totalSubscribers);
+        analyticsDTO.setPrepaidSubscribers(prepaidSubscribers);
+        analyticsDTO.setPostpaidSubscribers(postpaidSubscribers);
+
+        return analyticsDTO;
+    }
+
+
+	public Subscriber getSubscriberDetails(String id) {
+		return subscriberRepository.findBySubscriberID(id);
 	}
 
 }

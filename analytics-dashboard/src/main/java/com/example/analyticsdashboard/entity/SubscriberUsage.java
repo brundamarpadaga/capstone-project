@@ -18,12 +18,25 @@ public class SubscriberUsage {
 	private boolean unlimitedCalls;
 	private int validity;
 	private String renewalType;
+	private boolean validityActive;
 	
 	@Field("subscriberID")
 	private String subscriberID;
 	
 
 	
+	public boolean isValidityActive() {
+		return validityActive;
+	}
+
+	public void setValidityActive(boolean validityActive) {
+		this.validityActive = validityActive;
+	}
+
+	public void setId(ObjectId id) {
+		this.id = id;
+	}
+
 	public String getId() {
 		return id.toHexString();
 	}

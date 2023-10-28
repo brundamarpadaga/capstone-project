@@ -26,8 +26,8 @@ public class UsageController {
 	private UsageService usageService;
 	
 	@PostMapping("/plan-recharge")
-	public String assignResourcesOnRecharge(@RequestParam String subscriberId,@RequestParam String planId) {
-		usageService.assignResources(subscriberId,planId);	
+	public String assignResourcesOnRecharge(@RequestParam String phone,@RequestParam String planId) {
+		usageService.assignResources(phone,planId);	
 		return "Recharge Successful";
 	}
 

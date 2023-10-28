@@ -45,15 +45,17 @@
 //    public void testGetAllPlans() throws Exception {
 //    	 Plan plan1 = new Plan();
 //    	 plan1.setPlanName("Plan 1");
+//    	 plan1.setPlanId("123456789123456789123456");
 //    	 planRepository.save(plan1);
 //
 //    	 Plan plan2 = new Plan();
 //    	 plan2.setPlanName("Plan 2");
+//    	 plan2.setPlanId("123456789123456789123457");
 //    	 planRepository.save(plan2);
 //    	    
 //    	when(planRepository.findAll()).thenReturn(Arrays.asList(plan1, plan2));
 //    	    
-//    	    mockMvc.perform(MockMvcRequestBuilders.get("/plans"))
+//    	    mockMvc.perform(MockMvcRequestBuilders.get("/api/plans"))
 //            .andExpect(status().isOk())
 //            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
 //            .andExpect(jsonPath("$").isArray()) // Check if it's an array
@@ -69,7 +71,7 @@
 //    @Test
 //    public void testAddPlan() throws Exception {
 //    	Plan somePlan = new Plan();
-//        somePlan.setPlanId("1");
+//        somePlan.setPlanId("123456789123456789123456");
 //        somePlan.setPlanName("Test Plan");
 //        somePlan.setCallsUnlimited(false);
 //        somePlan.setDataPerDay(0);
@@ -89,7 +91,7 @@
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        String somePlanJson = objectMapper.writeValueAsString(somePlan);
 //
-//        mockMvc.perform(MockMvcRequestBuilders.post("/plan/add")
+//        mockMvc.perform(MockMvcRequestBuilders.post("/api/plan/add")
 //                .contentType(MediaType.APPLICATION_JSON)
 //                .content(somePlanJson))
 //                .andExpect(status().isOk())

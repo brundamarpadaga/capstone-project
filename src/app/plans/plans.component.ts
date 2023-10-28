@@ -61,5 +61,7 @@ export class PlansComponent implements OnInit {
     this.router.navigate(['/add-plan']); // Use the appropriate route path
   }
   
+
+  
   
 }

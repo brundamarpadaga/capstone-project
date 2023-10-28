@@ -1,5 +1,6 @@
 package com.example.analyticsdashboard.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,7 @@ public class UsageService {
 		
 		usage.setSmsLeft(newPlan.getTotalSMS());
 		usage.setValidity(newPlan.getValidity());
+		usage.setValidityActive(true);
 		usageRepository.save(usage);
 		return usage;
 		
@@ -68,6 +70,9 @@ public class UsageService {
 		List<SubscriberUsage> usages = usageRepository.findAll();
 		for(SubscriberUsage usage : usages) {
 			usage.setValidity(usage.getValidity()-1);
+			if(usage.getValidity()==0) {
+				usage.setValidityActive(false);
+			}
 			usageRepository.save(usage);
 		}
 		
@@ -144,5 +149,19 @@ public class UsageService {
 		}
 		return dto;
 	}
+	
+	 public int getInactiveSubscriberUsages() {
+	        List<SubscriberUsage> invalidPlanUsages = new ArrayList<SubscriberUsage>();
+	        List<SubscriberUsage> usages = usageRepository.findAll();
+	        for(SubscriberUsage usage: usages) {
+	        	if(usage.isValidityActive()==false) {
+	        		invalidPlanUsages.add(usage);
+	        	}
+	        }
+	        int inactiveUsages = invalidPlanUsages.size();
+	        return inactiveUsages;
+	    }
+	
+	
 
 }

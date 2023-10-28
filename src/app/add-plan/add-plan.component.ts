@@ -21,7 +21,7 @@ export class AddPlanComponent {
 
   selectedPlanType: string = 'Prepaid';
   selectedCallType : boolean = true;
-  myJson: any ;
+  successMessage: string | null = null;
 
   locationPriceList: { location: string, price: number }[] = [];
 
@@ -53,6 +53,11 @@ export class AddPlanComponent {
     
     this.plansService.addPlan(this.newPlan).subscribe((res) =>{
       console.log(res);
+      setTimeout(() => {
+        this.successMessage = null;
+      }, 5000); 
+      this.successMessage = 'Plan Added Successfully ' ;
+      
       
     });
     

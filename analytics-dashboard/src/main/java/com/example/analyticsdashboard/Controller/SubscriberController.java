@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.analyticsdashboard.dto.SubscriberDTO;
@@ -34,7 +35,11 @@ public class SubscriberController {
 	
 	@GetMapping("/subscribersWithPlanPrice")
     public List<SubscriberDTO> getAllSubscribers() {
-        return subscriberService.getSubscriberDetails();
+        return subscriberService.getAllSubscriberDetails();
     }
+	
+	public Subscriber getSubcriberDetails(@RequestParam String subscriberId ) {
+		return subscriberService.getSubscriberDetails(subscriberId);
+	}
 
 }

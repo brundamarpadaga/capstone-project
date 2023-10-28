@@ -116,5 +116,10 @@ public class CallRecordService {
 		return callRecordDTOs;
 	}
 	
+	public int countActiveCalls() {
+	    List<CallRecord> activeCalls = callRecordRepository.findByCallActive(true);
+	    return activeCalls.size();
+	}
+
 	
 }

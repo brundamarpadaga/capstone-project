@@ -35,7 +35,7 @@ public class SubscriberServiceTest {
     }
 
     @Test
-    public void testGetSubscriberDetails() {
+    public void testGetAllSubscriberDetails() {
         
         Subscriber subscriber = new Subscriber();
         subscriber.setSubscriberID("123456789123456789123456");
@@ -49,7 +49,7 @@ public class SubscriberServiceTest {
         when(subscriberRepository.findAll()).thenReturn(List.of(subscriber));
         when(planRepository.findByPlanName("TestPlanName")).thenReturn(Optional.of(plan));
 
-        List<SubscriberDTO> result = subscriberService.getSubscriberDetails();
+        List<SubscriberDTO> result = subscriberService.getAllSubscriberDetails();
 
         
         assertEquals(1, result.size());
