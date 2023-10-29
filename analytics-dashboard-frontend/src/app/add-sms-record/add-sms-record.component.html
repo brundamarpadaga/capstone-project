@@ -1,0 +1,53 @@
+<div class="admin">
+  <header class="admin__header">
+    <a href="#" class="logo">
+      <h1>Insights</h1>
+    </a>
+    <div class="toolbar">
+      <a [routerLink]="['/add-call-record']" class="btn btn--primary">Add Call Record</a>
+    </div>
+  </header>
+  <nav class="admin__nav">
+    <ul class="menu">
+      <li class="menu__item">
+        <a class="menu__link" href="/dashboard">Dashboard</a>
+      </li>
+      <li class="menu__item">
+        <a class="menu__link" href="/plans">Plans</a>
+      </li>
+      <li class="menu__item">
+        <a class="menu__link" href="/subscribers">Subscribers</a>
+      </li>
+      <li class="menu__item">
+        <a class="menu__link" href="/call-records">Call Records</a>
+      </li>
+      <li class="menu__item">
+        <a class="menu__link" href="/sms-records">SMS records</a>
+      </li>
+      <!-- <li class="menu__item">
+        <a class="menu__link" href="#">Plumbuses</a>
+      </li> -->
+    </ul>
+  </nav>
+  <main class="admin__main">
+
+    <div class="container mt-5">
+      <h2>Add SMS Record</h2>
+      <div class="form-group">
+        <label for="subscriberSelect">Select a Subscriber:</label>
+        <select id="subscriberSelect" class="form-control" [(ngModel)]="selectedSubscriberId">
+          <option *ngFor="let subscriber of subscribers" [value]="subscriber.subscriberID">{{ subscriber.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Recipient's Phone Number:</label>
+        <input id="phoneNumber" type="text" class="form-control" [(ngModel)]="phoneNumber">
+      </div>
+      <button class="btn btn-primary" (click)="sendSmsRecord()">Send SMS</button>
+    </div>
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+  </div>
+  </main>
+</div>

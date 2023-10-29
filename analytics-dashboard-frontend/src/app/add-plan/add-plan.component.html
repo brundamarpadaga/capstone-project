@@ -1,0 +1,165 @@
+<div class="admin">
+    <header class="admin__header">
+        <a href="#" class="logo">
+            <h1>Insights</h1>
+        </a>
+        <!-- <div class="toolbar">
+        <button class="btn btn--primary">Add New Plumbus</button>
+        <a href="#" class="logout">
+          Log Out
+        </a>
+      </div> -->
+    </header>
+    <nav class="admin__nav">
+        <ul class="menu">
+            <li class="menu__item">
+                <a class="menu__link" href="/dashboard">Dashboard</a>
+            </li>
+            <li class="menu__item">
+                <a class="menu__link" href="/plans">Plans</a>
+            </li>
+            <li class="menu__item">
+                <a class="menu__link" href="/subscribers">Subscribers</a>
+            </li>
+            <li class="menu__item">
+                <a class="menu__link" href="/call-records">Call Records</a>
+            </li>
+            <li class="menu__item">
+                <a class="menu__link" href="/sms-records">SMS records</a>
+            </li>
+            <!-- <li class="menu__item">
+          <a class="menu__link" href="#">Plumbuses</a>
+        </li> -->
+        </ul>
+    </nav>
+    <main class="admin__main">
+
+
+
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="edit-plan-container">
+                        <h2 class="mb-4">Add New Plan</h2>
+                        <form method="post" (submit)="addPlan()">
+                            <div class="form-group">
+                                <label for="planName" class="form-label" type="text">Plan Name:</label>
+                                <input id="planName" type="text" [(ngModel)]="newPlan.planName" name="planName"
+                                    class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="planType" class="form-label">Plan Type:</label>
+                                <select [(ngModel)]="newPlan.planType" name="planType" class="form-control"
+                                    (change)="onPlanTypeChange($event)">
+                                    <option value="Prepaid">Prepaid</option>
+                                    <option value="Postpaid">Postpaid</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="validity" class="form-label">Validity (days):</label>
+                                <input id="validity" type="number" [(ngModel)]="newPlan.validity" name="validity"
+                                    class="form-control" min="0" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="totalSMS" class="form-label">SMS quota:</label>
+                                <input id="totalSMS" type="number" [(ngModel)]="newPlan.totalSMS" name="totalSMS"
+                                    min="0" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dataUnit" class="form-label">Data Unit:</label>
+                                <select [(ngModel)]="newPlan.dataUnit" name="dataUnit" class="form-control">
+                                    <option value="MB">MB</option>
+                                    <option value="GB">GB</option>
+                                </select>
+                            </div>
+
+
+
+                            <div *ngIf="newPlan.planType === 'Prepaid'">
+                                <div *ngIf="newPlan.planType === 'Prepaid'" class="form-group">
+                                    <label for="dataPerDay" class="form-label">Data Per Day:</label>
+                                    <input id="dataPerDay" type="number" [(ngModel)]="newPlan.dataPerDay"
+                                        name="dataPerDay" min="0" class="form-control" required>
+                                </div>
+
+                                <label for="callsUnlimited" class="form-label">Unlimited Calls:</label>
+                                <select [(ngModel)]="newPlan.callsUnlimited" name="callsUnlimited" class="form-control"
+                                    (change)="onCallsTypeChange($event)">
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+
+                                <div *ngIf="newPlan.planType === 'Prepaid' && newPlan.callsUnlimited === false"
+                                    class="form-group">
+                                    <label for="talkTime" class="form-label">Talk Time:</label>
+                                    <input id="talkTime" type="number" [(ngModel)]="newPlan.talkTime" name="talkTime"
+                                        min="0" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div *ngIf="newPlan.planType === 'Postpaid'" class="form-group">
+                                <label for="dataPerPack" class="form-label">Data Per Pack:</label>
+                                <input id="dataPerPack" type="number" [(ngModel)]="newPlan.dataPerPack"
+                                    name="dataPerPack" min="0" class="form-control" required>
+                            </div>
+                            <div class="form-group d-flex align-items-center">
+                                <div class="mr-2" style="width: 40%;">
+                                    <label for="location" class="form-label">Location:</label>
+                                    <input id="location" type="text" #locationInput class="form-control" required>
+                                </div>
+                                <div class="mr-2" style="width: 40%;">
+                                    <label for="price" class="form-label">Price:</label>
+                                    <input id="price" type="number" #priceInput class="form-control" required min="0">
+                                </div>
+                                <div class="mr-2" style="width: 40%;">
+                                    <button type="button"
+                                        (click)="addLocationPrice(locationInput.value, priceInput.value)"
+                                        class="btn btn-sm btn-success">Add</button>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Location</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of locationPriceList">
+                                            <td>{{ item.location }}</td>
+                                            <td>{{ item.price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Add Plan" />
+                            <div *ngIf="successMessage" class="alert alert-success">
+                                {{ successMessage }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+
+
+
+</div>
