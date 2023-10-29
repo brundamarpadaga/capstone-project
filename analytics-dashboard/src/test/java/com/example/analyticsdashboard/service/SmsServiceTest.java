@@ -92,7 +92,7 @@ class SmsServiceTest {
 
 	        assertEquals("123423726324274723243434", result.getId());
 	        assertEquals("testPhoneNumber", result.getPhoneNumber());
-	        // Add more assertions for other fields
+	        
 	    }
 
 }

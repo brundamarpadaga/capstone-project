@@ -33,7 +33,7 @@ class PlanServiceTest {
 
     @Test
     public void testAddPlan() {
-        Plan plan = new Plan(); // Create a Plan instance as needed
+        Plan plan = new Plan(); 
 
         when(planRepository.save(any())).thenReturn(plan);
 
@@ -44,21 +44,21 @@ class PlanServiceTest {
 
     @Test
     public void testGetAllPlans() {
-        List<Plan> plans = new ArrayList<>(); // Create a list of Plan instances as needed
+        List<Plan> plans = new ArrayList<>(); 
         when(planRepository.findAll()).thenReturn(plans);
 
         List<PlanDTO> result = planService.getAllPlans();
 
         assertNotNull(result);
-        // Add assertions for checking the contents of the result list
+       
     }
 
     @Test
     public void testEditPlan() {
-        String id = "planId"; // Provide a valid plan ID
-        Plan plan = new Plan(); // Create a Plan instance with updated values
+        String id = "planId"; 
+        Plan plan = new Plan(); 
 
-        when(planRepository.findById(id)).thenReturn(Optional.of(new Plan())); // Return an existing plan
+        when(planRepository.findById(id)).thenReturn(Optional.of(new Plan())); 
 
         String result = planService.editPlan(id, plan);
 
@@ -67,10 +67,10 @@ class PlanServiceTest {
 
     @Test
     public void testEditPlanNonExistent() {
-        String id = "nonExistentPlanId"; // Provide a plan ID that does not exist
-        Plan plan = new Plan(); // Create a Plan instance with updated values
+        String id = "nonExistentPlanId"; 
+        Plan plan = new Plan(); 
 
-        when(planRepository.findById(id)).thenReturn(Optional.empty()); // Return no existing plan
+        when(planRepository.findById(id)).thenReturn(Optional.empty()); 
 
         String result = planService.editPlan(id, plan);
 
@@ -79,7 +79,7 @@ class PlanServiceTest {
 
     @Test
     public void testDeletePlan() {
-        String id = "planId"; // Provide a valid plan ID
+        String id = "planId"; 
 
         String result = planService.deletePlan(id);
 
@@ -88,21 +88,21 @@ class PlanServiceTest {
 
     @Test
     public void testGetPlan() {
-        String id = "123456789123456789123456"; // Provide a valid plan ID
-        Plan plan = new Plan(); // Create a Plan instance
+        String id = "123456789123456789123456"; 
+        Plan plan = new Plan(); 
         plan.setPlanId(id);
         when(planRepository.findByPlanId(id)).thenReturn(Optional.of(plan));
 
         PlanDTO result = planService.getPlan(id);
 
         assertNotNull(result);
-        // Add assertions for checking the contents of the result PlanDTO
+        assertEquals(result.getPlanId(), id);
+       
     }
 
     @Test
     public void testGetPlanNonExistent() {
-        String id = "123456789123456789123456"; // Provide a plan ID that does not exist
-
+        String id = "123456789123456789123456";
         when(planRepository.findByPlanId(id)).thenReturn(Optional.empty());
 
         PlanDTO result = planService.getPlan(id);
@@ -112,9 +112,9 @@ class PlanServiceTest {
     
     @Test
     public void testConvertToPlanDTO() {
-        // Create a Plan instance with sample data
+
         Plan plan = new Plan();
-        plan.setPlanId("123456789123456789123456"); // Provide a valid plan ID
+        plan.setPlanId("123456789123456789123456"); 
         plan.setPlanName("Sample Plan");
         plan.setPlanType("Type A");
         plan.setValidity(30);
@@ -124,18 +124,12 @@ class PlanServiceTest {
         plan.setDataPerDay(1);
         plan.setDataPerPack(10);
         plan.setDataUnit("GB");
-        //plan.setLocationBasedPricing(false);
 
-        // Create a PlanService instance (you might need to initialize it properly)
         PlanService planService = new PlanService();
-
-        // Call the convertToPlanDTO method
         PlanDTO planDTO = planService.convertToPlanDTO(plan);
 
-        // Assert that the returned PlanDTO is not null
         assertNotNull(planDTO);
 
-        // Add more specific assertions based on your data and expectations
         assertEquals("123456789123456789123456", planDTO.getPlanId());
         assertEquals("Sample Plan", planDTO.getPlanName());
         assertEquals("Type A", planDTO.getPlanType());
@@ -146,7 +140,7 @@ class PlanServiceTest {
         assertEquals(1, planDTO.getDataPerDay());
         assertEquals(10, planDTO.getDataPerPack());
         assertEquals("GB", planDTO.getDataUnit());
-        //assertFalse(planDTO.isLocationBasedPricing());
+        
     }
 
 }

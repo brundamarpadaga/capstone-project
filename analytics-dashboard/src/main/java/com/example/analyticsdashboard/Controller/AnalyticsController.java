@@ -47,14 +47,9 @@ public class AnalyticsController {
 	 
 	 @GetMapping("/average-call-duration")
 	 public ResponseEntity<Double> getAverageCallDuration() {
-	     List<CallRecord> callRecords = callRecordService.getAllCallrecords();
-	     double totalDuration = 0;
-	     for (CallRecord callRecord : callRecords) {
-	    	 
-	         totalDuration += callRecord.getCallDuration();
-	     }
-	     double averageDuration = totalDuration / callRecords.size();
-	     return ResponseEntity.ok(averageDuration);
+		 double averageDuration = callRecordService.getAverageCallDuration();
+		 return ResponseEntity.ok(averageDuration);
+	     
 	 }
 	 
 

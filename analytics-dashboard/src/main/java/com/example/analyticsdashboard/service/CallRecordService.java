@@ -1,6 +1,7 @@
 package com.example.analyticsdashboard.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.analyticsdashboard.dto.CallRecordDTO;
@@ -121,5 +122,16 @@ public class CallRecordService {
 	    return activeCalls.size();
 	}
 
+	
+	public double getAverageCallDuration() {
+		List<CallRecord> callRecords = callRecordRepository.findAll();
+		double totalDuration = 0;
+	     for (CallRecord callRecord : callRecords) {
+	    	 
+	         totalDuration += callRecord.getCallDuration();
+	     }
+	     double averageDuration = totalDuration / callRecords.size();
+	     return averageDuration;
+	}
 	
 }
