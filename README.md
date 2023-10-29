@@ -2,10 +2,10 @@
 
 ### Checklist
 
-- [ ] Requirement Specification
-- [ ] Backend code with documentation
+- [x] Requirement Specification
+- [x] Backend code with documentation
 - [ ] Frontend code with documentation
-- [ ] Database model visualisation
+- [x] Database model visualisation
 - [ ] Test Coverage Reports
 
 
