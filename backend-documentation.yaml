@@ -1,0 +1,748 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /api/plan/edit/{id}:
+    put:
+      tags:
+        - plan-controller
+      operationId: editPlan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plan'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MessageDTO'
+  /api/subscriber/add:
+    post:
+      tags:
+        - subscriber-controller
+      operationId: addSubscriber
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscriber'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/start-call:
+    post:
+      tags:
+        - call-records-controller
+      operationId: startCall
+      parameters:
+        - name: subscriberId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: phone
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MessageDTO'
+  /api/plan/add:
+    post:
+      tags:
+        - plan-controller
+      operationId: addPlan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plan'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MessageDTO'
+  /api/plan-recharge:
+    post:
+      tags:
+        - usage-controller
+      operationId: assignResourcesOnRecharge
+      parameters:
+        - name: phone
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: planId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/end-call:
+    post:
+      tags:
+        - call-records-controller
+      operationId: endCall
+      parameters:
+        - name: callRecordId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MessageDTO'
+  /api/dataUsed:
+    post:
+      tags:
+        - usage-controller
+      operationId: dataUsed
+      parameters:
+        - name: dataUsed
+          in: query
+          required: true
+          schema:
+            type: number
+            format: float
+        - name: subscriberId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MessageDTO'
+  /api/add-sms:
+    post:
+      tags:
+        - sms-controller
+      operationId: addSmsRecord
+      parameters:
+        - name: subscriberId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: phoneNumber
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MessageDTO'
+  /api/usage-status:
+    get:
+      tags:
+        - usage-controller
+      operationId: getAllUsages
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubscriberUsage'
+  /api/subscribers:
+    get:
+      tags:
+        - subscriber-controller
+      operationId: getAllSubs
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscriber'
+  /api/subscribersWithPlanPrice:
+    get:
+      tags:
+        - subscriber-controller
+      operationId: getAllSubscribers
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubscriberDTO'
+  /api/subscriber-usage/{subscriberId}:
+    get:
+      tags:
+        - usage-controller
+      operationId: getSubscriberUsage
+      parameters:
+        - name: subscriberId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SubscriberUsage'
+  /api/sms-records:
+    get:
+      tags:
+        - sms-controller
+      operationId: getAllSmsRecords
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SmsRecord'
+  /api/sms-records/{subscriberId}:
+    get:
+      tags:
+        - sms-controller
+      operationId: getAllSmsRecordsBySubscriber
+      parameters:
+        - name: subscriberId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SmsRecordDTO'
+  /api/sms-records-dto:
+    get:
+      tags:
+        - sms-controller
+      operationId: getAllSmsRecordsDTO
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SmsRecordDTO'
+  /api/plans:
+    get:
+      tags:
+        - plan-controller
+      operationId: getAllPlans
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlanDTO'
+  /api/plan/{id}:
+    get:
+      tags:
+        - plan-controller
+      operationId: getPlan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PlanDTO'
+  /api/data-left-piechart:
+    get:
+      tags:
+        - usage-controller
+      operationId: dataLeftPieChart
+      parameters:
+        - name: usageId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DataLeftDTO'
+  /api/call-records:
+    get:
+      tags:
+        - call-records-controller
+      operationId: getAllCallRecords
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CallRecord'
+  /api/call-records/{subscriberId}:
+    get:
+      tags:
+        - call-records-controller
+      operationId: getAllCallRecordsOfSubscriber
+      parameters:
+        - name: subscriberId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CallRecord'
+  /api/call-records-dto:
+    get:
+      tags:
+        - call-records-controller
+      operationId: getAllCallRecordsDTO
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CallRecordDTO'
+  /api/call-records-DTOs/{subscriberId}:
+    get:
+      tags:
+        - call-records-controller
+      operationId: getAllCallRecordsDTOsOfSubscriber
+      parameters:
+        - name: subscriberId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CallRecordDTO'
+  /api/call-record/{callRecordId}:
+    get:
+      tags:
+        - call-records-controller
+      operationId: getCallRecord
+      parameters:
+        - name: callRecordId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CallRecordDTO'
+  /api/analytics/subscriber-analytics:
+    get:
+      tags:
+        - analytics-controller
+      operationId: getSubscriberAnalytics
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SubscriberAnalyticsDTO'
+  /api/analytics/sms-records-hourly-count:
+    get:
+      tags:
+        - analytics-controller
+      operationId: getSmsRecordsHourlyCount
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+  /api/analytics/inactive-plan-count:
+    get:
+      tags:
+        - analytics-controller
+      operationId: getExpiredPlanCount
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: integer
+                format: int32
+  /api/analytics/call-records-hourly-count:
+    get:
+      tags:
+        - analytics-controller
+      operationId: getCallRecordsHourlyCount
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+  /api/analytics/average-call-duration:
+    get:
+      tags:
+        - analytics-controller
+      operationId: getAverageCallDuration
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: number
+                format: double
+  /api/analytics/active-call-count:
+    get:
+      tags:
+        - analytics-controller
+      operationId: getActiveCallCount
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: integer
+                format: int32
+  /api/active-calls:
+    get:
+      tags:
+        - call-records-controller
+      operationId: getActiveCallRecords
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CallRecordDTO'
+  /api/plan/delete/{id}:
+    delete:
+      tags:
+        - plan-controller
+      operationId: deletePlan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MessageDTO'
+components:
+  schemas:
+    ObjectId:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          format: int32
+        date:
+          type: string
+          format: date-time
+    Plan:
+      type: object
+      properties:
+        planId:
+          $ref: '#/components/schemas/ObjectId'
+        planName:
+          type: string
+        planType:
+          type: string
+        validity:
+          type: integer
+          format: int32
+        totalSMS:
+          type: integer
+          format: int32
+        callsUnlimited:
+          type: boolean
+        talkTime:
+          type: integer
+          format: int32
+        dataPerDay:
+          type: number
+          format: float
+        dataPerPack:
+          type: number
+          format: float
+        dataUnit:
+          type: string
+        locationBasedPricing:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+    MessageDTO:
+      type: object
+      properties:
+        statusReport:
+          type: string
+    Subscriber:
+      type: object
+      properties:
+        subscriberID:
+          type: string
+        name:
+          type: string
+        phoneNumber:
+          type: string
+        location:
+          type: string
+        planName:
+          type: string
+    SubscriberUsage:
+      type: object
+      properties:
+        id:
+          type: string
+        dataLeft:
+          type: number
+          format: float
+        smsLeft:
+          type: integer
+          format: int32
+        talkTimeLeft:
+          type: number
+          format: float
+        unlimitedCalls:
+          type: boolean
+        validity:
+          type: integer
+          format: int32
+        renewalType:
+          type: string
+        validityActive:
+          type: boolean
+        subscriberID:
+          type: string
+    SubscriberDTO:
+      type: object
+      properties:
+        subscriber:
+          $ref: '#/components/schemas/Subscriber'
+        locationBasedPricing:
+          type: integer
+          format: int32
+        planType:
+          type: string
+    SmsRecord:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ObjectId'
+        subscriberID:
+          type: string
+        phoneNumber:
+          type: string
+        sentTime:
+          type: string
+          format: date-time
+    SmsRecordDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        subscriberID:
+          type: string
+        phoneNumber:
+          type: string
+        sentTime:
+          type: string
+    PlanDTO:
+      type: object
+      properties:
+        planId:
+          type: string
+        planName:
+          type: string
+        planType:
+          type: string
+        validity:
+          type: integer
+          format: int32
+        totalSMS:
+          type: integer
+          format: int32
+        callsUnlimited:
+          type: boolean
+        talkTime:
+          type: integer
+          format: int32
+        dataPerDay:
+          type: number
+          format: float
+        dataPerPack:
+          type: number
+          format: float
+        dataUnit:
+          type: string
+        locationBasedPricing:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+    DataLeftDTO:
+      type: object
+      properties:
+        totalData:
+          type: number
+          format: float
+        dataLeft:
+          type: number
+          format: float
+    CallRecord:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ObjectId'
+        callStartTime:
+          type: string
+          format: date-time
+        callEndTime:
+          type: string
+          format: date-time
+        callDuration:
+          type: integer
+          format: int32
+        phoneNumber:
+          type: string
+        callActive:
+          type: boolean
+        subscriberID:
+          type: string
+    CallRecordDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        callStartTime:
+          type: string
+        callEndTime:
+          type: string
+        callDuration:
+          type: integer
+          format: int32
+        phoneNumber:
+          type: string
+        callActive:
+          type: boolean
+        subscriberID:
+          type: string
+    SubscriberAnalyticsDTO:
+      type: object
+      properties:
+        totalSubscribers:
+          type: integer
+          format: int32
+        prepaidSubscribers:
+          type: integer
+          format: int32
+        postpaidSubscribers:
+          type: integer
+          format: int32
