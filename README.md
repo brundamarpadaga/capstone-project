@@ -4,9 +4,9 @@
 
 - [x] Requirement Specification
 - [x] Backend code with documentation
-- [ ] Frontend code with documentation
+- [x] Frontend code with documentation
 - [x] Database model visualisation
-- [ ] Test Coverage Reports
+- [x] Test Coverage Reports
 
 
 ## Introduction
